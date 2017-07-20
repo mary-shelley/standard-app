@@ -15,7 +15,7 @@ class IndexControllerTest extends TestCase
         $request = Request::create("/");
         $response = Client::getInstance()->request($request);
 
-        $this->assertEquals("Hello World", $response->getContent());
+        $this->assertRegExp("/Hello World/", $response->getContent());
     }
 
     public function testSayHelloMissing()

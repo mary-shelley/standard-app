@@ -1,22 +1,55 @@
 <?php
+
+$src = realpath(__DIR__ . '/../../src');
+$views = realpath(__DIR__ . '/../views');
+$cache = realpath(__DIR__ . '/../../var/cache');
+$logs = realpath(__DIR__ . '/../../var/logs');
+
 return [
-    "framework" => [
-        "app"       => __DIR__ . '/../../src',
-        "cache"     => __DIR__ . '/../../var/cache',
-        "debug"     => $this->debug,
+    'app' => [
+        // here your configurations
     ],
-    "error" => [
-        "debug"     => $this->debug,
+    'framework' => [
+        'app'       => $src,
+        'cache'     => $cache,
+        'debug'     => $this->debug,
     ],
-    "doctrine" => [
-        "orm" =>  [
-            "connection" => [
+    'error' => [
+        'debug'     => $this->debug,
+    ],
+    'doctrine' => [
+        'orm' =>  [
+            'connection' => [
                 'driver' => 'pdo_sqlite',
                 'path' => __DIR__ . '/../../var/db.sqlite',
             ],
         ],
-        "entities" => [realpath(__DIR__ . "/../../src")],
-        "development" => $this->debug,
-        "cache" => realpath(__DIR__ . "/../../var/cache"),
+        'entities' => [$src],
+        'development' => $this->debug,
+        'cache' => $cache,
+    ],
+    'twig' => [
+        'templates' => $views,
+        'options' => [
+            'cache' => ($this->debug) ? false : $cache,
+            'debug' => $this->debug,
+        ],
+    ],
+    'logger' => [
+        'name' => 'default',
+        'handlers' => [
+            \Monolog\Handler\StreamHandler::class => [
+                'path' => $logs,
+                'level' => \Monolog\Logger::DEBUG,
+            ],
+        ],
+    ],
+    'smtp' => [
+        'type' => \Zend\Mail\Transport\InMemory::class,
+        'options' => [],
+    ],
+    'serializer' =>[
+        'cache' => $cache . '/normalize_module_cache',
+        'debug' => $this->debug,
     ],
 ];

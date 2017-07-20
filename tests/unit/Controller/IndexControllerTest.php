@@ -2,21 +2,20 @@
 namespace App\Controller;
 
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
+use Prophecy\Argument;
 
 class IndexControllerTest extends TestCase
 {
     public function testSayHello()
     {
-        $controller = new IndexController();
+        $twig = $this->prophesize("Twig_Environment");
+        $twig->render(Argument::Any(), Argument::Any())->willReturn("hello");
 
-        $request = Request::create("/");
-        $response = new Response();
+        $controller = new IndexController($twig->reveal());
 
-        $response = $controller->indexAction($request, $response);
+        $response = $controller->indexAction(null, null);
 
-        $this->assertEquals("Hello World", $response->getContent());
+        $this->assertEquals("hello", $response);
     }
 }
 

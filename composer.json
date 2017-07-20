@@ -7,7 +7,12 @@
         "wdalmut/frankie-framework-module": "dev-master",
         "wdalmut/frankie-foundation-module": "dev-master",
         "wdalmut/frankie-error-module": "dev-master",
-        "wdalmut/frankie-doctrine-module": "dev-master"
+        "wdalmut/frankie-doctrine-module": "dev-master",
+        "wdalmut/frankie-twig-module": "dev-master",
+        "wdalmut/frankie-logger-module": "dev-master",
+        "wdalmut/frankie-smtp-module": "dev-master",
+        "wdalmut/frankie-event-module": "dev-master",
+        "wdalmut/frankie-serialize-module": "dev-master"
     },
     "autoload": {
         "psr-4": {
